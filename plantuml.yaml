@@ -1,0 +1,44 @@
+@startyaml
+    -
+        nom: LEON
+        caracteristiques:
+            - 1
+            - 2
+        composants:
+            - 1
+            - 2
+        
+
+    -
+        nom: LEON2
+        caracteristiques:
+            - 1
+            - 2
+        composants:
+            - 1
+            - 2
+    -
+        nom: LEON3
+        caracteristiques:
+            - 1
+            - 2
+        composants:
+            - 1
+            - 2
+    -
+        nom: LEON4
+        caracteristiques:
+            - 1
+            - 2
+        composants:
+            - 1
+            - 2
+    -
+        nom: LEON5
+        caracteristiques:
+            - 1
+            - 2
+        composants:
+            - 1
+            - 2
+@endyaml
