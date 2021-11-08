@@ -6,3 +6,5 @@ Liens vers les documents utilisés pour la recherche d'informations
 3. https://www.sjalander.com/research/pdf/sjalander-dasia2009.pdf (LEON4: Fourth Generation of the LEON Processor)
 4. http://digilab.teipir.gr/site_data/MSc_IES/LEON3%20SPARC%20Processor,%20The%20Past%20Present%20and%20Future.pdf (LEON SPARC Processor
 The past, present and future)
+5. https://www.gaisler.com/products/grlib/grip.pdf#G83.1015710 (GRLIB IP Core user's manual)
+6. https://www.gaisler.com/doc/grfpu_wp.pdf (GRFPU – High Performance IEEE­754 Floating­Point Unit)
