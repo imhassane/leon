@@ -23,25 +23,28 @@ enum IOMode {
     32
 }
 
-interface Cache {
+entity FPUController {}
+
+entity Cache {
    type: CacheType
    size: int
    level: int
    replacementPolicy: CacheReplacementPolicy
 }
 
-interface Memory {
+entity Memory {
    type: MemoryType
 }
 
-interface IO {
+entity IO {
    type: string
    mode: IOMode
    debit: int
 }
 
-interface FPU {
+entity FPU {
     norme: string
+    controller: FPUController
 }
 
 
@@ -49,7 +52,26 @@ interface Base {
     caches: List<Cache>
     fpu: FPU
     frequency: int
-
-    faultTolerance: boolean
 }
+
+
+class Leon1 extends Base {}
+
+class Leon1FT extends Leon1 {}
+
+class Leon2 extends Leon1 {}
+
+class Leon2FT extends Leon2 {}
+
+class Leon3 extends Base {}
+
+class Leon3FT extends Leon3 {}
+
+class Leon4 extends Leon3 {}
+
+class Leon4FT extends Leon4 {}
+
+class Leon5 extends Leon4 {}
+
+class Leon5FT extends Leon5 {}
 @enduml
