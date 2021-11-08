@@ -47,11 +47,14 @@ entity FPU {
     controller: FPUController
 }
 
+entity PredictionUnit {}
+
 
 interface Base {
     caches: List<Cache>
     fpu: FPU
     frequency: int
+    memory: Memory
 }
 
 
@@ -63,7 +66,9 @@ class Leon2 extends Leon1 {}
 
 class Leon2FT extends Leon2 {}
 
-class Leon3 extends Base {}
+class Leon3 extends Base {
+   predictionUnit: PredictionUnit
+}
 
 class Leon3FT extends Leon3 {}
 
