@@ -23,7 +23,7 @@ enum IOMode {
     32
 }
 
-entity FPUController {}
+entity FPU {}
 
 entity Cache {
    type: CacheType
@@ -42,21 +42,28 @@ entity IO {
    debit: int
 }
 
-entity FPU {
-    norme: string
-    controller: FPUController
-}
-
 entity PredictionUnit {}
 
+Cache -- CacheReplacementPolicy
+Cache -- CacheType
+
+IO -- IOType
+IO -- IOMode
+
+Memory -- MemoryType
 
 interface Core {
     caches: List<Cache>
     fpu: FPU
     frequency: int
     memory: Memory
+    io: IO
 }
 
+Core -- Cache
+Core -- FPU
+Core -- Memory
+Core -- IO
 
 class Leon1 extends Core {}
 
@@ -69,6 +76,8 @@ class Leon2FT extends Leon2 {}
 class Leon3 extends Core {
    predictionUnit: PredictionUnit
 }
+
+Leon3 -- PredictionUnit
 
 class Leon3FT extends Leon3 {}
 
