@@ -1,56 +1,58 @@
 @startuml
-enum CacheType {
-   DATA_CACHE
-   INSTRUCTION
+package "Cache"{
+  entity Cache {
+     type: CacheType
+     size: int
+     level: int
+     replacementPolicy: CacheReplacementPolicy
+  }
+
+  enum CacheType {
+     DATA_CACHE
+     INSTRUCTION
+  }
+
+  enum CacheReplacementPolicy {
+     LRU
+     LRR
+  }
 }
 
-enum CacheReplacementPolicy {
-   LRU
-   LRR
-}
+package "Input Output"{
+  entity IO {
+     type: string
+     mode: IOMode
+     debit: int
+  }
 
-enum MemoryType {
-   DRAM
-   SRAM
-}
+  enum IOType {
+     PCI
+  }
 
-enum IOType {
-   PCI
-}
-
-enum IOMode {
-    64
-    32
+  enum IOMode {
+      64
+      32
+  }
 }
 
 entity FPU {}
 
-entity Cache {
-   type: CacheType
-   size: int
-   level: int
-   replacementPolicy: CacheReplacementPolicy
-}
+package "Memory"{
+  entity Memory {
+     type: MemoryType
+  }
 
-entity Memory {
-   type: MemoryType
-}
-
-entity IO {
-   type: string
-   mode: IOMode
-   debit: int
+  enum MemoryType {
+     DRAM
+     SRAM
+  }
 }
 
 entity PredictionUnit {}
 
-Cache -- CacheReplacementPolicy
-Cache -- CacheType
 
-IO -- IOType
-IO -- IOMode
 
-Memory -- MemoryType
+
 
 interface Core {
     caches: List<Cache>
