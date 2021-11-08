@@ -1,0 +1,55 @@
+@startuml
+enum CacheType {
+   DATA_CACHE
+   INSTRUCTION
+}
+
+enum CacheReplacementPolicy {
+   LRU
+   LRR
+}
+
+enum MemoryType {
+   DRAM
+   SRAM
+}
+
+enum IOType {
+   PCI
+}
+
+enum IOMode {
+    64
+    32
+}
+
+interface Cache {
+   type: CacheType
+   size: int
+   level: int
+   replacementPolicy: CacheReplacementPolicy
+}
+
+interface Memory {
+   type: MemoryType
+}
+
+interface IO {
+   type: string
+   mode: IOMode
+   debit: int
+}
+
+interface FPU {
+    norme: string
+}
+
+
+interface Base {
+    caches: List<Cache>
+    fpu: FPU
+    frequency: int
+
+    faultTolerance: boolean
+}
+@enduml
