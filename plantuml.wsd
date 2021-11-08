@@ -60,7 +60,6 @@
           - 2
   -
       nom: LEON 4 / GRLIB IP
-      raison: LEON 2 était censé etre utilisé sur un processeur mais était de plus en plus utilisé sur les SOC. D'où la nécessité de LEON 3
       cache:
           - Désactivation du cache après une interruption
           - PIRE TEMPS D'EXECUTION = TEMPS NORMAL D'EXECUTION + TEMPS D'INTERRUPTION
@@ -86,7 +85,7 @@
           - 2
   -
       nom: LEON 5 / GRLIB IP
-      raison: LEON 2 était censé etre utilisé sur un processeur mais était de plus en plus utilisé sur les SOC. D'où la nécessité de LEON 3
+      raison:  LEON5 vjse les hautes architectures FPGA et la technologie ASIC deep-submicron
       cache:
           - Caches de type I/D multi-set de niveaux 1
           - Un cache optionnel de niveau 2
