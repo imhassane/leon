@@ -50,7 +50,7 @@ entity FPU {
 entity PredictionUnit {}
 
 
-interface Base {
+interface Core {
     caches: List<Cache>
     fpu: FPU
     frequency: int
@@ -58,7 +58,7 @@ interface Base {
 }
 
 
-class Leon1 extends Base {}
+class Leon1 extends Core {}
 
 class Leon1FT extends Leon1 {}
 
@@ -66,7 +66,7 @@ class Leon2 extends Leon1 {}
 
 class Leon2FT extends Leon2 {}
 
-class Leon3 extends Base {
+class Leon3 extends Core {
    predictionUnit: PredictionUnit
 }
 
