@@ -1,9 +1,9 @@
 @startuml
+together {
 package "Cache"{
   entity Cache {
      type: CacheType
      size: int
-     level: int
      replacementPolicy: CacheReplacementPolicy
   }
 
@@ -16,6 +16,23 @@ package "Cache"{
      LRU
      LRR
   }
+}
+
+entity FPU {}
+
+package "Memory"{
+  entity Memory {
+     type: MemoryType
+  }
+
+  enum MemoryType {
+     DRAM
+     SRAM
+  }
+}
+
+entity PredictionUnit {}
+
 }
 
 package "Input Output"{
@@ -35,59 +52,41 @@ package "Input Output"{
   }
 }
 
-entity FPU {}
-
-package "Memory"{
-  entity Memory {
-     type: MemoryType
-  }
-
-  enum MemoryType {
-     DRAM
-     SRAM
-  }
-}
-
-entity PredictionUnit {}
-
-
-
-
-
-interface Core {
-    caches: List<Cache>
+together {
+interface MonoCore extends Processor{
+    cacheL1: Cache
     fpu: FPU
     frequency: int
     memory: Memory
-    io: IO
 }
 
-Core -- Cache
-Core -- FPU
-Core -- Memory
-Core -- IO
+interface MultiCore extends Processor{
+    cacheL1: Cache
+    fpu: FPU
+    frequency: int
+    memory: Memory
+    predictionUnit: PredictionUnit
+}
+}
 
-class Leon1 extends Core {}
+interface Processor{
+    Core: List<Core>
+    cacheL2: Cache
+    io: IO
+    isFaultTolerant: boolean
+}
 
-class Leon1FT extends Leon1 {}
+Processor::io -- "Input Output"
+
+
+class Leon1 extends MonoCore {}
 
 class Leon2 extends Leon1 {}
 
-class Leon2FT extends Leon2 {}
-
-class Leon3 extends Core {
-   predictionUnit: PredictionUnit
+class Leon3 extends MultiCore {
 }
-
-Leon3 -- PredictionUnit
-
-class Leon3FT extends Leon3 {}
 
 class Leon4 extends Leon3 {}
 
-class Leon4FT extends Leon4 {}
-
 class Leon5 extends Leon4 {}
-
-class Leon5FT extends Leon5 {}
 @enduml
