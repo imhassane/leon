@@ -1,5 +1,4 @@
 @startuml
-together {
 package "Cache"{
   entity Cache {
      type: CacheType
@@ -33,7 +32,6 @@ package "Memory"{
 
 entity PredictionUnit {}
 
-}
 
 package "Input Output"{
   entity IO {
@@ -52,6 +50,43 @@ package "Input Output"{
   }
 }
 
+enum FaultToleranceImp{
+    NoProtection
+    4BitsParity
+    8BitsParity
+    7BitsBCHRestart
+    MemoryTriplication
+    7BitsBCHNoRestart
+    TechnologySpecific
+}
+note right of FaultToleranceImp::NoProtection
+    Pas de système de tolérance aux fautes implémenté (ID = 0).
+end note
+
+note right of FaultToleranceImp::4BitsParity
+    Détection de fautes avec 4 bits de parité pour mot de 32 bits, corrige 1 bit par octet. Le pipeline redémarre après correction (ID = 1)
+end note
+
+note right of FaultToleranceImp::8BitsParity
+    Détection de fautes avec 8 bits de parité pour mot de 32 bits, corrige 1 bit par octet. Correction à la volée sans redémarrage (ID = 2)
+end note
+
+note right of FaultToleranceImp::7BitsBCHRestart
+    Detection de fautes avec le code BCH, le pipeline redémarre après correction (ID = 3).
+end note
+
+note right of FaultToleranceImp::MemoryTriplication
+    Blocs de mémoire triplés et vote des sorties bit par bit. Correction à la volée (ID = 4).
+end note
+
+note right of FaultToleranceImp::7BitsBCHNoRestart
+    Detection de fautes avec le code BCH, Correction à la volée dans le même cycle de lecture de la mémoire (ID = 5)
+end note
+
+note right of FaultToleranceImp::TechnologySpecific
+    Implantation spécifique aux processeur LEON. Correction à la volée (ID = 6)
+end note
+
 together {
 interface MonoCore extends Processor{
     cacheL1: Cache
@@ -66,6 +101,7 @@ interface MultiCore extends Processor{
     frequency: int
     memory: Memory
     predictionUnit: PredictionUnit
+    faultTolerance: FaultToleranceImp
 }
 }
 
@@ -73,10 +109,10 @@ interface Processor{
     Core: List<Core>
     cacheL2: Cache
     io: IO
-    isFaultTolerant: boolean
 }
 
 Processor::io -- "Input Output"
+FaultToleranceImp -- MultiCore::faultTolerance
 
 
 class Leon1 extends MonoCore {}
