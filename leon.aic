@@ -1,0 +1,5 @@
+<PROJECT>
+  <AADL path="leon_properties.aadl" enabled="false" opened="false"/>
+  <AADL path="leon.aadl" enabled="false" opened="false"/>
+  <AADL path="leon_types.aadl" enabled="true" opened="true"/>
+</PROJECT>

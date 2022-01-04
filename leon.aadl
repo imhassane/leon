@@ -1,0 +1,34 @@
+package LeonProcessor
+public
+  with leon_types;
+  with leon_properties;
+
+  processor single_core
+  properties
+    Scheduling_Protocol => POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL;
+  end single_core;
+
+  processor implementation single_core.impl
+  properties
+    LeonIO::IO_Type => PCI;
+  end single_core.impl;
+
+  system Leon_Mono
+  end Leon_Mono;
+
+  system Leon_Multi
+  end Leon_Multi;
+
+  system implementation Leon_Mono.impl
+  subcomponents
+    core: processor single_core;
+  properties
+    LeonIO::IoMode => SixtyFourBits;
+  end Leon_Mono.impl;
+
+  system implementation Leon_Multi.impl
+  subcomponents
+    cores: processor single_core [4];
+  end Leon_Multi.Impl;
+end LeonProcessor;
+
