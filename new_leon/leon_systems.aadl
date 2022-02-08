@@ -193,6 +193,48 @@ package leon_systems
         -- Integer Unit
         leon_properties::Stage_Type => FiveStage;
     end leon_2.impl;
+
+    -- Fault Tolerant
+    processor leon_2_ft
+    end leon_2_ft;
+
+    processor implementation leon_2_ft.impl
+    subcomponents
+        L1_Instruction_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+        L1_Data_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+    properties
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+
+        leon_properties::Debit => 125;
+
+        -- Tolérance aux fautes
+        leon_properties::Supported_Fault_Tolerance_Implementation => FourBitsParity;
+        leon_properties::Supported_Fault_Tolerance_Implementation => EightBitsParity;
+        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHRestart;
+        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
+        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHNoRestart;
+        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
+    end leon_2_ft.impl;
     ---------------------------------------------------
     --------------------- Leon 3 ----------------------
     ---------------------------------------------------
@@ -230,6 +272,48 @@ package leon_systems
         leon_properties::Debit => 125;
         leon_properties::Supported_Fault_Tolerance_Implementation => NoProtection;
     end leon_3.impl;
+
+    -- Fault Tolerant
+    processor leon_3_ft
+    end leon_3_ft;
+
+    processor implementation leon_3_ft.impl
+    subcomponents
+        L1_Instruction_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+        L1_Data_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+    properties
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+
+        leon_properties::Debit => 125;
+
+        -- Tolérance aux fautes
+        leon_properties::Supported_Fault_Tolerance_Implementation => FourBitsParity;
+        leon_properties::Supported_Fault_Tolerance_Implementation => EightBitsParity;
+        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHRestart;
+        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
+        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHNoRestart;
+        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
+    end leon_3_ft.impl;
 
     ---------------------------------------------------
     --------------------- Leon 4 ----------------------
@@ -269,6 +353,44 @@ package leon_systems
         leon_properties::Debit => 150;
         leon_properties::Supported_Fault_Tolerance_Implementation => NoProtection;
     end leon_4.impl;
+
+    -- Fault Tolerant
+    processor leon_4_ft
+    end leon_4_ft;
+
+    processor implementation leon_4_ft.impl
+    subcomponents
+        L1_Instruction_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+        L1_Data_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+    properties
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+
+        leon_properties::Debit => 150;
+
+        -- Tolérance aux fautes
+        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
+        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
+    end leon_4_ft.impl;
 
     ---------------------------------------------------
     --------------------- Leon 5 ----------------------
@@ -312,5 +434,47 @@ package leon_systems
         leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
 
     end leon_5.impl;
+
+    -- Fault Tolerant
+    processor leon_5_ft
+    end leon_5_ft;
+
+    processor implementation leon_5_ft.impl
+    subcomponents
+        L1_Instruction_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+        L1_Data_Cache: memory Cache.impl {
+            Memory_Size => 1024Bytes;
+            Cheddar_Multicore_Properties::Line_Size => 16Bytes;
+            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Level => 1;
+            Cheddar_Multicore_Properties::Associativity => 1;
+            Cheddar_Multicore_Properties::Cache_Size => 1024;
+            Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+        };
+
+    properties
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
+        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+
+        leon_properties::Debit => 125;
+
+        -- Tolérance aux fautes
+        leon_properties::Supported_Fault_Tolerance_Implementation => FourBitsParity;
+        leon_properties::Supported_Fault_Tolerance_Implementation => EightBitsParity;
+        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHRestart;
+        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
+        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHNoRestart;
+        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
+    end leon_5_ft.impl;
 
 end leon_systems;
