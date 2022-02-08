@@ -1,0 +1,293 @@
+property set Cheddar_Multicore_Properties is
+    
+
+
+    ------------------------------------------------------------    
+    -- This property is used to tad a system component 
+    --  to specify if it implement a SoC and what kidnd of SoC 
+    ------------------------------------------------------------   
+ 
+    Supported_Soc_Type : type enumeration (
+        SoC_Processing_Unit, SoC_Memory_Unit, Soc_Interconnection_Unit);	
+    
+	System_Soc_Type : Cheddar_Multicore_Properties::Supported_SoC_Type applies to (system);
+
+    ---------------------------------------------------    
+    -- Property for Processing units modeling 
+    ---------------------------------------------------   
+ 
+    Supported_Instruction_Set_Architecture_Type  : type enumeration (
+       i386, powerpc, risc5, sparc1, sparc2, sparc3,
+			sparc4, sparc5, sparc6, sparc7, sparc8);	
+    Instruction_Set_Architecture_Type : Cheddar_Multicore_Properties::Supported_Instruction_Set_Architecture_Type applies to (memory, system);
+ 
+    Supported_Processors_type : type enumeration (
+        Unicore_type, Identical_Multicores_Type, Uniform_Multicores_Type,
+		Unrelated_Multicores_Type );	
+    Processors_type : Cheddar_Multicore_Properties::Supported_Processors_type applies to (memory, system);
+
+    Supported_Migrations_Type : type enumeration (
+        No_Migration_Type, Job_Level_Migration_Type, Time_Unit_Migration_Type);	
+    Migrations_Type : Cheddar_Multicore_Properties::Supported_Migrations_Type applies to (memory, system);
+  
+    Supported_Multiprocessors_Type : type enumeration (
+        Identical, Homogeneous, Heterogeneous);	
+    Multiprocessors_Type : Cheddar_Multicore_Properties::Supported_Multiprocessors_Type applies to (memory, system);
+    
+    
+   -- Memory space isolation
+   -- Define whether a processor may have its own private addressing space
+   -- Related to the capability of hardware to isolate threadï¿½s memory access flows (virtual memory context, address space numbers, ?)
+   --  
+   Implement_Runtime_Protection: aadlboolean applies to (processor,system);
+
+
+   -- Maximum number of run instruction per second
+   -- i.e. Peak_MIPS is an upper bound of the processor speed
+   -- This is the worst mean to express the speed of a processor, but everyone knows the limit of that metric
+   --
+   Peak_MIPS : aadlinteger applies to (processor,system);
+
+
+    ---------------------------------------------------    
+    -- Property for Memory  units modeling 
+    ---------------------------------------------------   
+ 
+   
+    -- Memory and/or memory bus latency properties
+    --
+
+    Private_Access_Latency : Time_Range applies to (memory, system);    
+    Shared_Access_Latency : Time_Range applies to (memory, system);        
+  
+      
+    ---------------------------------------------------    
+    -- Memory bank properties
+    ---------------------------------------------------    
+
+    
+    -- Properties for shared memory DRAM banks analysis of 
+    -- Kim, de Nizz and Andersson
+    --
+    Data_Bus_Turn_Around_And_Rank_To_Bank_Switch_Delay : Time_Range applies to (memory, system); 
+    Inter_Bank_Row_Activate_Timing_Constraints : Time_Range applies to (memory, system); 
+    Command_Bus_Scheduling_Time : Time_Range applies to (memory, system); 
+    Maximum_Number_of_Row_Hits : Time_Range applies to (memory, system); 
+    Consecutive_Row_Hit_Requests : Time_Range applies to (memory, system); 
+    Row_Conflict_Service_Time : Time_Range applies to (memory, system); 
+
+    
+    -- Cache properties
+    -- 
+	
+     Supported_Addressing_Type : type enumeration (
+       Virtual_Addressing, Physical_Addressing);	
+     Addressing_Type : Cheddar_Multicore_Properties::Supported_Addressing_Type applies to (memory, system);
+	
+ 
+    -- This property specifies the type of cache    
+    --
+    Supported_Cache_Type : type enumeration (
+        Data_Cache, 
+        Instruction_Cache, 
+        Unified_Cache);
+    Cache_Type : Cheddar_Multicore_Properties::Supported_Cache_Type applies to (memory, system);
+    
+    -- This property specifies the size of a cache
+    -- Level 1 --> a cache is associated to a core. 
+    -- Level 2 --> a cache is associated to a processors
+    --
+    Cache_Level : aadlinteger applies to (memory, system);
+
+    
+    -- This property specifies the size of a cache
+    --
+    Cache_Size : aadlinteger applies to (memory, system);
+
+    
+    -- This property specifies the size of a cache line
+    --
+    Line_Size : size applies to (memory, system);    
+
+
+    -- This property specifies the associativity of a cache
+    -- Associativity = 0    : Fully associative cache
+    -- Associativity = 1    : Direct mapped cache
+    -- Associativity = >0   : Set associative cache
+    --
+    Associativity : aadlinteger applies to (memory, system);
+
+
+    -- This property specifies an upper-bound on the time it takes to load a memory block into the cache
+    --
+    Block_Reload_Time : Time_Range applies to (memory, system);        
+
+        
+    -- This property specifies the replacement policy of a cache
+    -- Direct mapped cache (Associativity = 1) does not require a replacement policy.
+    -- Fully associative (Associativity = 0) and set associative cache (Associativity > 1) do require a replacement policy.
+    --
+    Supported_Replacement_Policy_Type : type enumeration (
+        Random, LRU, LRR, FIFO);
+    Replacement_Policy_Type : Cheddar_Multicore_Properties::Supported_Replacement_Policy_Type applies to (memory, system);
+
+
+    -- This property specifies the management rule applied to a cache
+    -- (Modeled but analysis are not supported in Cheddar at the moment)
+    --                                  
+    Supported_Coherence_Protocol_Type : type enumeration (
+        Private_Cache, 
+        Shared_Cache, 
+        Private_Invalid_Cache, 
+        Private_MSI, 
+        Private_MESI);
+   Coherence_Protocol_Type : Cheddar_Multicore_Properties::Supported_Coherence_Protocol_Type applies to (memory, system);
+    
+	
+    -- This property specifies the write policy applied to a cache
+    -- (Modeled but analysis are not supported in Cheddar at the moment)
+    --
+    Supported_Write_Policy_Type : type enumeration (
+        Write_Back,
+        No_Allocated_Write_Through, 
+        Allocated_Write_Through,
+        Write_Through);
+    Write_Policy_Type : Cheddar_Multicore_Properties::Supported_Write_Policy_Type applies to (memory, system);                
+    
+
+
+    -- CFG properties
+    --
+    
+    -- Name of the Cheddar xmlv3 file storing the control flow graph for a thread (CFG)
+    -- 
+    CFG_Name : aadlstring applies to (thread);
+
+    
+    -- This property specifies whether we can relocate the CFG in the memory
+    -- If CFG_Relocatable = true,  analysis tools can relocate the CFG in the memory by changing the value of Text_Memory_Start_Address
+    -- If CFG_Relocatable = false, analysis tools cannot relocate the CFG
+    --
+    CFG_Relocatable : aadlboolean applies to (thread);
+
+
+    -- This property specifies the position of a CFG in the memory
+    -- It is the address of the basic block with the lowest memory address
+    -- We take an assumption that basic blocks are allocated continuously
+    -- If Text_Memory_Start_Address = -1, it means that it is not specified
+    --
+    Text_Memory_Start_Address : aadlinteger applies to (thread);    
+
+    
+    ----------
+    -- We allow the users to describe the UCBs and ECBs of a thread. 
+    -- An user has two options: 
+    -- 1. Use Cheddar to compute the sets of UCBs and ECBs
+    -- In this case, the user does not need to specify the sets of UCBs and ECBs
+    -- 2. Pre-compute the sets of UCBs and ECBs
+    -- In this case, the user needs to specify the sets the CFG
+    ----------
+    
+    -- The property specifies the set of useful cache blocks (UCB) of a task
+    --
+    UCBs : list of aadlinteger applies to (thread);    
+    
+    -- The property specifies the set of evicting cache blocks (ECB) of a task
+    --
+    ECBs : list of aadlinteger applies to (thread);
+ 
+ 
+      
+    ---------------------------------------------------    
+    -- Property for Interconnection modeling 
+    ---------------------------------------------------   
+ 
+    Supported_SoC_Interconnection_Type : type enumeration (
+        Shared_Bus, Star, Point_to_point_Link , Crossbar, NoC, Torus_NoC, Mesh_NoC);	
+    SoC_Interconnection_Type : Cheddar_Multicore_Properties::Supported_SoC_Interconnection_Type applies to (system);
+
+
+    Supported_Routing_Type : type enumeration (
+        XY, YX, XYX, Programmable_Routing);	
+    Routing_Protocol : Cheddar_Multicore_Properties::Supported_Routing_Type applies to (system);
+	
+		
+    Supported_Switching_Type : type enumeration (
+        Wormhole, Store_And_Forward, Virtual_Cut_Through);	
+    Switching_Protocol : Cheddar_Multicore_Properties::Supported_Switching_Type applies to (system);
+
+	
+    IP_Position_Spec : type record (
+                x : aadlinteger;
+                y : aadlinteger;
+    );
+    IP_Positions : list of Cheddar_Multicore_Properties::IP_Position_Spec
+		applies to (system);
+		
+    
+    Number_Of_Virtual_Channel : aadlinteger applies to (system);
+
+	
+    Supported_Arbitration_Type : type enumeration (
+        TDMA, Non_Conservative_Round_Robin, Conservative_Round_Robin, Round_Robin_With_Bandwidth_Reservation, Fixed_Priority_Based);	
+    Arbitration_Type : Cheddar_Multicore_Properties::Supported_Arbitration_Type applies to (system);
+
+	
+    Supported_Data_Memorisation_Type : type enumeration (
+        Virtual_Channel, Input_Port_buffer, Output_Port_buffer);	
+    Data_Memorisation_Type : Cheddar_Multicore_Properties::Supported_Arbitration_Type applies to (system);
+ 
+ 
+   Supported_Communication_Preemption_Level : type enumeration (
+        Flit, Packet);	
+   Communication_Preemption_Level : Cheddar_Multicore_Properties::Supported_Communication_Preemption_Level applies to (system);
+ 
+    -- Partie Hassane
+
+    ------------------------------------------------------------
+    -- Frequency
+    ------------------------------------------------------------
+    Frequency: aadlinteger 0..1500 applies to (system);
+    
+    ------------------------------------------------------------
+    -- Gestion du IO
+    ------------------------------------------------------------
+    IOType: type enumeration (PCI);
+	IOMode: type enumeration (SixtyFourBits, ThirtyTwoBits);
+	
+	IO_Type: Cheddar_Multicore_Properties::IOType applies to (system);
+	IO_Mode: Cheddar_Multicore_Properties::IOMode applies to (system);
+	Debit: aadlinteger 132..528 applies to (system);
+
+
+    ------------------------------------------------------------
+    -- Gestion Fault Tolerance
+    ------------------------------------------------------------
+    FTTYPE: type enumeration (NoProtection, FourBitsParity, EightBitsParity, SevenBitsBCHRestart, MemoryTriplication, SevenBitsBCHNoRestart, TechnologySpecific);
+    
+    -- This property defines wether or not the fault tolerance is activated
+	Ft: Cheddar_Multicore_Properties::FTTYPE applies to (system);
+
+    ------------------------------------------------------------
+    -- Integer Unit
+    ------------------------------------------------------------
+    -- 5-stage pipeline
+    Supported_Instruction_Five_Stage: type enumeration (FE, DE, EX, ME, WR);
+    Supported_Operations_Five_Stage: type enumeration
+        (Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store,
+        Taken_Trap, Double_Load, Single_Store, Double_Store,
+        Umac, Smac);
+
+    -- 7-stage pipeline instructions
+    Supported_Instruction_Seven_Stage: type enumeration (FE, DE, RA, EX, ME, XC, WR);
+    Supported_Operations_Seven_Stage: type enumeration (Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store);
+
+    Supported_Stages: type enumeration (FiveStage, SevenStage);
+    Stage_Type: Cheddar_Multicore_Properties::Supported_Stages applies to (memory, system);
+    -- List of operations accepted by the Integer Unit
+    Operation_Type: Cheddar_Multicore_Properties::Supported_Stages applies to (memory, system);
+
+
+end Cheddar_Multicore_Properties;
+
+

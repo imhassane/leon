@@ -1,0 +1,46 @@
+package l2_cache_system
+    public
+        memory Cache
+        end Cache;
+
+        memory implementation Cache.impl
+        end Cache.impl;
+
+        ---------- SYSTEME CONTENANT LE CACHE L2
+        -- Process qui contient le cache.
+        process l2_cache_app
+        end l2_cache_app;
+
+        Process implementation l2_cache_app.impl
+        subcomponents
+            L2_Cache: memory Cache.impl {
+                Memory_Size => 1024Bytes;
+                Cheddar_Multicore_Properties::Line_Size => 256Bytes;
+                Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+                Cheddar_Multicore_Properties::Cache_Level => 1;
+                Cheddar_Multicore_Properties::Associativity => 1;
+                Cheddar_Multicore_Properties::Cache_Size => 1024;
+                Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
+            };
+        end l2_cache_app.impl;
+        -- cpu du cache 
+        processor l2_cache_cpu
+        properties
+            Scheduling_Protocol=>POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL;
+        end l2_cache_cpu;
+        
+        processor implementation l2_cache_cpu.impl
+        end l2_cache_cpu.impl;
+
+        system l2_cache
+        end l2_cache;
+
+        system implementation l2_cache.impl
+        subcomponents
+            app: process l2_cache_app.Impl;
+            cpu: processor l2_cache_cpu;
+        properties
+            Actual_Processor_Binding => reference (cpu) applies to app;
+        end l2_cache.impl;
+
+end l2_cache_system;

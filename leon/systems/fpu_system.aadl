@@ -1,0 +1,6 @@
+package FpuSystem
+
+public
+    system Fpu
+    end Fpu;
+end FpuSystem;

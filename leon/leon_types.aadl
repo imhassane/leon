@@ -1,0 +1,150 @@
+------------------------------------------------------------
+    -- Fault Tolerance
+------------------------------------------------------------
+property set LeonFt is
+	FT_TYPE: type enumeration (NoProtection, FourBitsParity, EightBitsParity, SevenBitsBCHRestart, MemoryTriplication, SevenBitsBCHNoRestart, TechnologySpecific);
+	Ft: LeonFT::FT_TYPE applies to (system);
+end LeonFt;
+
+------------------------------------------------------------
+    -- Input / Output
+------------------------------------------------------------
+property set LeonIO is
+	IO_Type: type enumeration (PCI);
+	IO_Mode: type enumeration (SixtyFourBits, ThirtyTwoBits);
+	
+	IOType: LeonIO::IO_Type applies to (system);
+	IOMode: LeonIO::IO_Mode applies to (system);
+	Debit: aadlinteger 132..528 applies to (system);
+end LeonIO;
+
+------------------------------------------------------------
+    -- Cache
+------------------------------------------------------------
+property set LeonCache is
+	-- Cache properties
+    -- 
+	
+     Supported_Addressing_Type : type enumeration (
+       Virtual_Addressing, Physical_Addressing);	
+     Addressing_Type : LeonCache::Supported_Addressing_Type applies to (memory, system);
+	
+ 
+    -- This property specifies the type of cache    
+    --
+    Supported_Cache_Type : type enumeration (
+        Data_Cache, 
+        Instruction_Cache, 
+        Unified_Cache);
+    Cache_Type : LeonCache::Supported_Cache_Type applies to (memory, system);
+    
+    -- This property specifies the size of a cache
+    -- Level 1 --> a cache is associated to a core. 
+    -- Level 2 --> a cache is associated to a processors
+    --
+    Cache_Level : aadlinteger applies to (memory, system);
+
+    
+    -- This property specifies the size of a cache
+    --
+    Cache_Size : aadlinteger applies to (memory, system);
+
+    
+    -- This property specifies the size of a cache line
+    --
+    Line_Size : size applies to (memory, system);    
+
+
+    -- This property specifies the associativity of a cache
+    -- Associativity = 0    : Fully associative cache
+    -- Associativity = 1    : Direct mapped cache
+    -- Associativity = >0   : Set associative cache
+    --
+    Associativity : aadlinteger applies to (memory, system);
+
+
+    -- This property specifies an upper-bound on the time it takes to load a memory block into the cache
+    --
+    Block_Reload_Time : Time_Range applies to (memory, system);        
+
+        
+    -- This property specifies the replacement policy of a cache
+    -- Direct mapped cache (Associativity = 1) does not require a replacement policy.
+    -- Fully associative (Associativity = 0) and set associative cache (Associativity > 1) do require a replacement policy.
+    --
+    Supported_Replacement_Policy_Type : type enumeration (
+        Random, LRU, LRR, FIFO);
+    Replacement_Policy_Type : LeonCache::Supported_Replacement_Policy_Type applies to (memory, system);
+
+
+    -- This property specifies the management rule applied to a cache
+    -- (Modeled but analysis are not supported in Cheddar at the moment)
+    --                                  
+    Supported_Coherence_Protocol_Type : type enumeration (
+        Private_Cache, 
+        Shared_Cache, 
+        Private_Invalid_Cache, 
+        Private_MSI, 
+        Private_MESI);
+   Coherence_Protocol_Type : LeonCache::Supported_Coherence_Protocol_Type applies to (memory, system);
+    
+	
+    -- This property specifies the write policy applied to a cache
+    -- (Modeled but analysis are not supported in Cheddar at the moment)
+    --
+    Supported_Write_Policy_Type : type enumeration (
+        Write_Back,
+        No_Allocated_Write_Through, 
+        Allocated_Write_Through,
+        Write_Through);
+    Write_Policy_Type : LeonCache::Supported_Write_Policy_Type applies to (memory, system);                
+end LeonCache;
+
+------------------------------------------------------------
+    -- Integer Unit
+------------------------------------------------------------
+property set LeonIntegerUnit is
+	-- 5-stage pipeline
+    Supported_Instruction_Five_Stage: type enumeration (FE, DE, EX, ME, WR);
+    Supported_Operations_Five_Stage: type enumeration
+        (Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store,
+        Taken_Trap, Double_Load, Single_Store, Double_Store,
+        Umac, Smac);
+
+    -- 7-stage pipeline instructions
+    Supported_Instruction_Seven_Stage: type enumeration (FE, DE, RA, EX, ME, XC, WR);
+    Supported_Operations_Seven_Stage: type enumeration (Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store);
+
+    Supported_Stages: type enumeration (FiveStage, SevenStage);
+
+	-- Supported Stages of the Integer Unit
+    Stage_Type: Cheddar_Multicore_Properties::Supported_Stages applies to (memory, system);
+	
+    -- List of operations accepted by the Integer Unit
+    Operation_Type: Cheddar_Multicore_Properties::Supported_Stages applies to (memory, system);
+end LeonIntegerUnit;
+
+------------------------------------------------------------
+    -- Memory
+------------------------------------------------------------
+property set LeonMemory is
+	-- Memory and/or memory bus latency properties
+    Private_Access_Latency : Time_Range applies to (memory, system);    
+    Shared_Access_Latency : Time_Range applies to (memory, system);        
+  
+      
+    ---------------------------------------------------    
+    -- Memory bank properties
+    ---------------------------------------------------    
+
+    
+    -- Properties for shared memory DRAM banks analysis of 
+    -- Kim, de Nizz and Andersson
+    --
+    Data_Bus_Turn_Around_And_Rank_To_Bank_Switch_Delay : Time_Range applies to (memory, system); 
+    Inter_Bank_Row_Activate_Timing_Constraints : Time_Range applies to (memory, system); 
+    Command_Bus_Scheduling_Time : Time_Range applies to (memory, system); 
+    Maximum_Number_of_Row_Hits : Time_Range applies to (memory, system); 
+    Consecutive_Row_Hit_Requests : Time_Range applies to (memory, system); 
+    Row_Conflict_Service_Time : Time_Range applies to (memory, system); 
+end LeonMemory;

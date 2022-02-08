@@ -1,0 +1,10 @@
+<PROJECT>
+  <AADL path="leon_properties.aadl" enabled="true" opened="true"/>
+  <AADL path="leon.aadl" enabled="true" opened="true"/>
+  <AADL path="leon_types.aadl" enabled="true" opened="true"/>
+  <AADL path="multicore_properties.aadl" enabled="true" opened="true"/>
+  <AADL path="systems/fpu_system.aadl" enabled="true" opened="true"/>
+  <AADL path="systems/pu_system.aadl" enabled="true" opened="true"/>
+  <AADL path="systems/l2_cache_system.aadl" enabled="true" opened="true"/>
+  <AADL path="cores.aadl" enabled="true" opened="true"/>
+</PROJECT>

@@ -1,0 +1,38 @@
+package LeonProcessor
+public
+  with multicore_properties;
+  with fpu_system;
+  with leon_types;
+  with leon_properties;
+  with l2_cache_system;
+  with cores;
+
+  ---------------------------------------------------
+  -- Leon Mono coeur --
+  ---------------------------------------------------
+
+  system Leon_Mono
+  end Leon_Mono;
+
+  system implementation Leon_Mono.impl
+  subcomponents
+    core: processor cores::mono_core;
+  properties
+    Cheddar_Multicore_Properties::IoMode => SixtyFourBits;
+  end Leon_Mono.impl;
+
+  ---------------------------------------------------
+  -- Leon Multi coeur --
+  ---------------------------------------------------
+
+  system Leon_Multi
+  end Leon_Multi;
+
+  system implementation Leon_Multi.impl
+  subcomponents
+    cores: processor cores::multi_core [4];
+    l2_cache: system l2_cache_system::l2_cache;
+
+  end Leon_Multi.Impl;
+end LeonProcessor;
+
