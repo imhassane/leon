@@ -53,18 +53,6 @@ package cores
                 };
 
                 memoire: memory Memoire.impl;
-            properties
-                -- IO
-                Cheddar_Multicore_Properties::IOType => PCI;
-                Cheddar_Multicore_Properties::IOMode => SixtyFourBits;
-                Cheddar_Multicore_Properties::Debit => 132;
-
-                -- Frequency
-                Cheddar_Multicore_Properties::Frequency => 1500;
-
-                -- Integer Unit
-                Cheddar_Multicore_Properties::Stage_Type => FiveStage;
-
         end mono_core.impl;
 
         ---------------------------------------------------

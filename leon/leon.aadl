@@ -18,7 +18,18 @@ public
   subcomponents
     core: processor cores::mono_core;
   properties
+    -- Input / Output
+    Cheddar_Multicore_Properties::IOType => PCI;
     Cheddar_Multicore_Properties::IoMode => SixtyFourBits;
+
+    -- Frequence
+    Cheddar_Multicore_Properties::Frequency => 1500;
+
+    -- Debit
+    Cheddar_Multicore_Properties::Debit => 132;
+
+    -- Integer Unit
+    Cheddar_Multicore_Properties::Stage_Type => FiveStage;
   end Leon_Mono.impl;
 
   ---------------------------------------------------
@@ -32,7 +43,19 @@ public
   subcomponents
     cores: processor cores::multi_core [4];
     l2_cache: system l2_cache_system::l2_cache;
+  properties
+    -- Input / Output
+    Cheddar_Multicore_Properties::IOType => PCI;
+    Cheddar_Multicore_Properties::IoMode => SixtyFourBits;
 
+    -- Frequence
+    Cheddar_Multicore_Properties::Frequency => 1500;
+
+    -- Debit
+    Cheddar_Multicore_Properties::Debit => 132;
+
+    -- Integer Unit
+    Cheddar_Multicore_Properties::Stage_Type => FiveStage;
   end Leon_Multi.Impl;
 end LeonProcessor;
 
