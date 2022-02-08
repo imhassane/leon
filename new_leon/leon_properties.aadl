@@ -1,0 +1,45 @@
+property set leon_properties is
+    ------------------------------------------------------------
+    -- Frequency
+    ------------------------------------------------------------
+    Frequency: aadlinteger 0..1500 applies to (system);
+    
+    ------------------------------------------------------------
+    -- Gestion du IO
+    ------------------------------------------------------------
+    IOType: type enumeration (PCI);
+	IOMode: type enumeration (SixtyFourBits, ThirtyTwoBits);
+	
+	IO_Type: leon_properties::IOType applies to (system);
+	IO_Mode: leon_properties::IOMode applies to (system);
+	Debit: aadlinteger 132..528 applies to (system);
+
+
+    ------------------------------------------------------------
+    -- Gestion Fault Tolerance
+    ------------------------------------------------------------
+    FTTYPE: type enumeration (NoProtection, FourBitsParity, EightBitsParity, SevenBitsBCHRestart, MemoryTriplication, SevenBitsBCHNoRestart, TechnologySpecific);
+    
+    -- This property defines wether or not the fault tolerance is activated
+	Supported_Fault_Tolerance_Implementation: leon_properties::FTTYPE applies to (system);
+
+    ------------------------------------------------------------
+    -- Integer Unit
+    ------------------------------------------------------------
+    -- 5-stage pipeline
+    Supported_Instruction_Five_Stage: type enumeration (FE, DE, EX, ME, WR);
+    Supported_Operations_Five_Stage: type enumeration
+        (Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store,
+        Taken_Trap, Double_Load, Single_Store, Double_Store,
+        Umac, Smac);
+
+    -- 7-stage pipeline instructions
+    Supported_Instruction_Seven_Stage: type enumeration (FE, DE, RA, EX, ME, XC, WR);
+    Supported_Operations_Seven_Stage: type enumeration (Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store);
+
+    Supported_Stages: type enumeration (FiveStage, SevenStage);
+    Stage_Type: leon_properties::Supported_Stages applies to (memory, system);
+
+    -- List of operations accepted by the Integer Unit
+    Operation_Type: leon_properties::Supported_Stages applies to (memory, system);
+end leon_properties;

@@ -2,6 +2,7 @@ package LeonProcessor
 public
   with multicore_properties;
   with fpu_system;
+  with pu_system;
   with leon_types;
   with leon_properties;
   with l2_cache_system;
@@ -43,6 +44,7 @@ public
   subcomponents
     cores: processor cores::multi_core [4];
     l2_cache: system l2_cache_system::l2_cache;
+    prediction_unit: system PredictionUnitSystem::prediction_unit_system;
   properties
     -- Input / Output
     Cheddar_Multicore_Properties::IOType => PCI;

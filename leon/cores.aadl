@@ -1,6 +1,5 @@
 package cores
     public
-        with pu_system;
 
         ---------------------------------------------------
         ---------- Memoire --------------------------------
@@ -86,8 +85,6 @@ package cores
                 };
 
                 memoire: memory Memoire.impl;
-
-                prediction_unit: system PredictionUnitSystem::prediction_unit_system;
             properties
                 -- IO
                 Cheddar_Multicore_Properties::IOType => PCI;
