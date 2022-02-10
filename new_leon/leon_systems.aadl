@@ -153,6 +153,8 @@ package leon_systems
     --------------------- Leon 2 ----------------------
     ---------------------------------------------------
     processor leon_2
+    features
+        processor_bus: requires bus access;
     properties
         Scheduling_Protocol => POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL;
     end leon_2;
@@ -196,6 +198,8 @@ package leon_systems
 
     -- Fault Tolerant
     processor leon_2_ft
+    features
+        processor_bus: requires bus access;
     end leon_2_ft;
 
     processor implementation leon_2_ft.impl
@@ -239,6 +243,8 @@ package leon_systems
     --------------------- Leon 3 ----------------------
     ---------------------------------------------------
     processor leon_3
+    features
+        processor_bus: requires bus access;
     properties
         Scheduling_Protocol => POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL;
     end leon_3;
@@ -275,6 +281,8 @@ package leon_systems
 
     -- Fault Tolerant
     processor leon_3_ft
+    features
+        processor_bus: requires bus access;
     end leon_3_ft;
 
     processor implementation leon_3_ft.impl
@@ -319,10 +327,13 @@ package leon_systems
     --------------------- Leon 4 ----------------------
     ---------------------------------------------------
     processor leon_4
+    features
+        processor_bus: requires bus access;
     properties
         Scheduling_Protocol => POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL;
     end leon_4;
 
+    
     processor implementation leon_4.impl
     subcomponents
         L1_Instruction_Cache: memory Cache.impl {
@@ -356,6 +367,8 @@ package leon_systems
 
     -- Fault Tolerant
     processor leon_4_ft
+    features
+        processor_bus: requires bus access;
     end leon_4_ft;
 
     processor implementation leon_4_ft.impl
@@ -396,6 +409,8 @@ package leon_systems
     --------------------- Leon 5 ----------------------
     ---------------------------------------------------
     processor leon_5
+    features
+        processor_bus: requires bus access;
     properties
         Scheduling_Protocol => POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL;
     end leon_5;
@@ -437,6 +452,8 @@ package leon_systems
 
     -- Fault Tolerant
     processor leon_5_ft
+    features
+        processor_bus: requires bus access;
     end leon_5_ft;
 
     processor implementation leon_5_ft.impl
