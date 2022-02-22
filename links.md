@@ -8,3 +8,5 @@ Liens vers les documents utilisés pour la recherche d'informations
 The past, present and future)
 5. https://www.gaisler.com/products/grlib/grip.pdf#G83.1015710 (GRLIB IP Core user's manual)
 6. https://www.gaisler.com/doc/grfpu_wp.pdf (GRFPU – High Performance IEEE­754 Floating­Point Unit)
+7. https://github.com/OpenAADL/AADLib/tree/master/examples (Exemples de projets AADL)
+8. https://www.gaisler.com/doc/grfpu_dasia.pdf (GRFPU plus de details)
