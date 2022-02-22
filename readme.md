@@ -36,3 +36,20 @@ La gestion des erreurs est fournie au niveau du design (VHDL), pas besoin d'un p
 | Avec cache locking | Sans cache locking |
 
 #### Leon 4
+
+# Propriétés de LEON
+
+Liste des propriétés qui sont utilisées pour le processeur LEON.
+
+#### Propriétés LEON
+------------------------------------
+| Propriété | Valeurs possibles  | Description  |
+|---|---|---|
+| Frequency | 0 .. 1500 MHz | Fréquence de la plateforme d'exécution (FPGA ou Asic Technologies, ...) |
+| IO_Type  | PCI  | Définit le type du bus de transfert |
+| IO_Mode | SixtyFourBits (64 Bits), ThirtyTwoBits (32 Bits) | La taille du bus de transfert de données |
+| Supported_Fault_Tolerance_Implementation | NoProtection, FourBitsParity, EightBitsParity, SevenBitsBCHRestart, MemoryTriplication, SevenBitsBCHNoRestart, TechnologySpecific | Définit l'algorithme de correction d'érreurs à appliquer |
+| Stage_Type | FiveStage [FE, DE, RA, EX, ME, XC, WR], SevenStage [Jumpl, Smul, Umul, Sdiv, Udiv, Atomic_Load, Store] | Définit le nombre d'opérations possibles par l'unité de calcul (FPU) |
+
+
+#### Propriétés CHEDDAR
