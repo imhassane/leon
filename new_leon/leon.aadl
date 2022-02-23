@@ -5,174 +5,94 @@ package Leon
     with leon_properties;
     with leon_systems;
 
-    ---------------------------------------------------
-    --------------------- Leon 1 ----------------------
-    ---------------------------------------------------
-    system Leon1
-    end Leon1;
-
-    system implementation Leon1.impl
-    subcomponents
-        core: processor leon_systems::mono_core;
+    -- threads
+    thread transfert_data
     properties
-        -- Input / Output
-        leon_properties::IOType => PCI;
-        leon_properties::IoMode => SixtyFourBits;
+        Dispatch_Protocol => Periodic;
+        Period => 25 ms;
+        Compute_Execution_Time => 3 ms .. 4 ms;
+        Deadline => 25 ms;
+        Priority => 10;
+    end transfert_data;
 
-        -- Frequence
-        leon_properties::Frequency => 1500;
+    thread implementation transfert_data.impl
+    end transfert_data.impl;
 
-        -- Debit
-        leon_properties::Debit => 132;
-
-        -- Integer Unit
-        leon_properties::Stage_Type => FiveStage;
-    end Leon1.impl;
-
-    ---------------------------------------------------
-    --------------------- Leon 2 ----------------------
-    ---------------------------------------------------
-
-    system Leon2
-    end Leon2;
-
-    system implementation Leon2.impl
-    subcomponents
-        core: processor leon_systems::mono_core;
+    thread calculatrice
     properties
-        -- Input / Output
-        leon_properties::IOType => PCI;
-        leon_properties::IoMode => SixtyFourBits;
+        Dispatch_Protocol => Periodic;
+        Period => 15 ms;
+        Compute_Execution_Time => 3 ms .. 4 ms;
+        Deadline => 15 ms;
+        Priority => 20;
+    end calculatrice;
 
-        -- Frequence
-        leon_properties::Frequency => 1500;
+    thread implementation calculatrice.impl
+    end calculatrice.impl;
 
-        -- Debit
-        leon_properties::Debit => 132;
-
-        -- Integer Unit
-        leon_properties::Stage_Type => FiveStage;
-    end Leon2.impl;
-
-    ---------------------------------------------------
-    --------------------- Leon 3 ----------------------
-    ---------------------------------------------------
-
-    system Leon3
-    end Leon3;
-
-    system implementation Leon3.impl
-    subcomponents
-        cores: processor cores::multi_core [4];
+    thread detecteur
     properties
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+        Dispatch_Protocol => Periodic;
+        Period => 20 ms;
+        Compute_Execution_Time => 3 ms .. 4 ms;
+        Deadline => 20 ms;
+        Priority => 30;
+    end detecteur;
 
-        leon_properties::Debit => 125;
-        leon_properties::Supported_Fault_Tolerance_Implementation => NoProtection;
-    end Leon3.impl;
+    thread implementation detecteur.impl
+    end detecteur.impl;
 
-    -- Fault Tolerance
-    system Leon3_Ft
-    end Leon3_Ft;
-
-    system implementation Leon3_Ft.impl
-    subcomponents
-        cores: processor cores::multi_core [4];
+    thread geolocalisation
     properties
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+        Dispatch_Protocol => Periodic;
+        Period => 20 ms;
+        Compute_Execution_Time => 3 ms .. 4 ms;
+        Deadline => 20 ms;
+        Priority => 40;
+    end geolocalisation;
 
-        leon_properties::Debit => 125;
+    thread implementation geolocalisation.impl
+    end geolocalisation.impl;
 
-        -- Tolérance aux fautes
-        leon_properties::Supported_Fault_Tolerance_Implementation => FourBitsParity;
-        leon_properties::Supported_Fault_Tolerance_Implementation => EightBitsParity;
-        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHRestart;
-        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
-        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHNoRestart;
-        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
-    end Leon3_Ft.impl;
+    -- Process
+    process application
+    end application;
 
-    ---------------------------------------------------
-    --------------------- Leon 4 ----------------------
-    ---------------------------------------------------
-
-    system Leon4
-    end Leon4;
-
-    system implementation Leon4.impl
+    process implementation application.impl
     subcomponents
-        cores: processor cores::multi_core [4];
+        transfert_data: thread transfert_data.impl;
+        calculatrice: thread calculatrice.impl;
+        detecteur: thread detecteur.impl;
+        geolocalisation: thread geolocalisation.impl;
+    end application.impl;
+
+
+    bus Amba
     properties
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
+        AllowedConnectionProtocol=> (DataConnection, EventConnection);
+        AllowedAccessProtocol=> (MemoryAccess, DeviceAccess);
+        AllowedMessageSize => 2B .. 2B;
+        SEI::BandWidthCapacity => 1.0Mbps ;
+    end Amba;
 
-        leon_properties::Debit => 150;
-        leon_properties::Supported_Fault_Tolerance_Implementation => NoProtection;
-    end Leon4.impl;
+    memory Mem
+    end Mem;
 
-    -- Fault Tolerance
-    system Leon4_Ft
-    end Leon4_Ft;
+    -- System
+    system test_leon
+    end test_leon;
 
-    system implementation Leon4_Ft.impl
+    system implementation test_leon.impl
     subcomponents
-        cores: processor cores::multi_core [4];
+        core: processor leon_4.impl;
+        appl: process application.impl;
+        amba_bus: bus Amba;
+        mem: memory Mem;
+    connections
+        bus access amba_bus -> core.processor_bus;
     properties
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
-
-        leon_properties::Debit => 150;
-
-        -- Tolérance aux fautes
-        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
-        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
-    end Leon4_Ft.impl;
-
-    ---------------------------------------------------
-    --------------------- Leon 5 ----------------------
-    ---------------------------------------------------
-
-    system Leon5
-    end Leon5;
-
-    system implementation Leon5.impl
-    subcomponents
-        cores: processor cores::multi_core [4];
-    properties
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
-
-        leon_properties::Debit => 125;
-        leon_properties::Supported_Fault_Tolerance_Implementation => NoProtection;
-    end Leon5.impl;
-
-    -- Fault Tolerance
-    system Leon5_Ft
-    end Leon5_Ft;
-
-    system implementation Leon5_Ft.impl
-    subcomponents
-        cores: processor cores::multi_core [4];
-    properties
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => Random;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRR;
-        Cheddar_Multicore_Properties::Replacement_Policy_Type => LRU;
-
-        leon_properties::Debit => 125;
-
-        -- Tolérance aux fautes
-        leon_properties::Supported_Fault_Tolerance_Implementation => FourBitsParity;
-        leon_properties::Supported_Fault_Tolerance_Implementation => EightBitsParity;
-        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHRestart;
-        leon_properties::Supported_Fault_Tolerance_Implementation => MemoryTriplication;
-        leon_properties::Supported_Fault_Tolerance_Implementation => SevenBitsBCHNoRestart;
-        leon_properties::Supported_Fault_Tolerance_Implementation => TechnologySpecific;
-    end Leon5_Ft.impl;
+        Scheduling_Protocol=>POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL applies to core;
+        Actual_Processor_Binding => reference (core) applies to appl;
+        Actual_Memory_Binding => reference (mem) applies to core;
+    end test_leon.impl;
 end Leon;
