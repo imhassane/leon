@@ -79,12 +79,12 @@ package Leon
     end Mem;
 
     -- System
-    system test_leon
-    end test_leon;
+    system test_leon_4_ft
+    end test_leon_4_ft;
 
-    system implementation test_leon.impl
+    system implementation test_leon_4_ft.impl
     subcomponents
-        core: processor leon_4.impl;
+        core: processor leon_4_ft.impl [4];
         appl: process application.impl;
         amba_bus: bus Amba;
         mem: memory Mem;
@@ -94,5 +94,5 @@ package Leon
         Scheduling_Protocol=>POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL applies to core;
         Actual_Processor_Binding => reference (core) applies to appl;
         Actual_Memory_Binding => reference (mem) applies to core;
-    end test_leon.impl;
+    end test_leon_4_ft.impl;
 end Leon;

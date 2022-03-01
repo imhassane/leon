@@ -63,7 +63,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -109,7 +109,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -152,7 +152,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -196,7 +196,7 @@ package leon_systems
             Cheddar_Multicore_Properties::Block_Reload_Time => 1 us .. 2 us;
         };
 
-        L1_Data_Cache: memory Cache.impl {
+        L1_Data_Cache: memory CData
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
             Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
@@ -235,7 +235,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -284,7 +284,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -321,7 +321,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -365,7 +365,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
@@ -406,7 +406,7 @@ package leon_systems
         L1_Data_Cache: memory Cache.impl {
             Memory_Size => 1024Bytes;
             Cheddar_Multicore_Properties::Line_Size => 16Bytes;
-            Cheddar_Multicore_Properties::Cache_Type => Instruction_Cache;  	    
+            Cheddar_Multicore_Properties::Cache_Type => Data_Cache;  	    
             Cheddar_Multicore_Properties::Cache_Level => 1;
             Cheddar_Multicore_Properties::Associativity => 1;
             Cheddar_Multicore_Properties::Cache_Size => 1024;
